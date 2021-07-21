@@ -104,263 +104,269 @@ HRESULT Cube::SetupGeometry()
 	enum TEX_COORDS { TEXCOORD_TOPLEFT = 0, TEXCOORD_TOPRIGHT = 1, TEXCOORD_BOTTOMLEFT = 2, TEXCOORD_BOTTOMRIGHT = 3};
 
 	int vertexIndex = 0;
-	// Side 1 - Front face
+	// Side 1 - Green face
+	auto green = D3DXVECTOR4(0.0f, 1.0f, 0.0f, 1.0f);
 	pVertices[vertexIndex].position = cubeVertices[0];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPLEFT];
 	pVertices[vertexIndex].normal = normals[N_FORWARD];
 	pVertices[vertexIndex].tangent = normals[N_RIGHT];
 	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(0.0f, 1.0f, 0.0f, 1.0f);
+	pVertices[vertexIndex].colour = green;
 
 	pVertices[++vertexIndex].position = cubeVertices[3];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPRIGHT];
 	pVertices[vertexIndex].normal = normals[N_FORWARD];
 	pVertices[vertexIndex].tangent = normals[N_RIGHT];
 	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(0.0f, 1.0f, 0.0f, 1.0f);
+	pVertices[vertexIndex].colour = green;
 
 	pVertices[++vertexIndex].position = cubeVertices[4];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMLEFT];
 	pVertices[vertexIndex].normal = normals[N_FORWARD];
 	pVertices[vertexIndex].tangent = normals[N_RIGHT];
 	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(0.0f, 1.0f, 0.0f, 1.0f);
+	pVertices[vertexIndex].colour = green;
 
 	pVertices[++vertexIndex].position = cubeVertices[3];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPRIGHT];
 	pVertices[vertexIndex].normal = normals[N_FORWARD];
 	pVertices[vertexIndex].tangent = normals[N_RIGHT];
 	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(0.0f, 1.0f, 0.0f, 1.0f);
+	pVertices[vertexIndex].colour = green;
 
 	pVertices[++vertexIndex].position = cubeVertices[7];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMRIGHT];
 	pVertices[vertexIndex].normal = normals[N_FORWARD];
 	pVertices[vertexIndex].tangent = normals[N_RIGHT];
 	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(0.0f, 1.0f, 0.0f, 1.0f);
+	pVertices[vertexIndex].colour = green;
 
 	pVertices[++vertexIndex].position = cubeVertices[4];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMLEFT];
 	pVertices[vertexIndex].normal = normals[N_FORWARD];
 	pVertices[vertexIndex].tangent = normals[N_RIGHT];
 	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(0.0f, 1.0f, 0.0f, 1.0f);
+	pVertices[vertexIndex].colour = green;
 
 	// Side 1 - Right face
+	auto blue = D3DXVECTOR4(0.0f, 0.0f, 1.0f, 1.0f);
 	pVertices[++vertexIndex].position = cubeVertices[3];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPLEFT];
 	pVertices[vertexIndex].normal = normals[N_RIGHT];
 	pVertices[vertexIndex].tangent = normals[N_BACKWARD]; 
 	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(0.0f, 0.0f, 1.0f, 1.0f);
+	pVertices[vertexIndex].colour = blue;
 
 	pVertices[++vertexIndex].position = cubeVertices[2];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPRIGHT];
 	pVertices[vertexIndex].normal = normals[N_RIGHT];
 	pVertices[vertexIndex].tangent = normals[N_BACKWARD];
 	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(0.0f, 0.0f, 1.0f, 1.0f);
+	pVertices[vertexIndex].colour = blue;
 
 	pVertices[++vertexIndex].position = cubeVertices[7];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMLEFT];
 	pVertices[vertexIndex].normal = normals[N_RIGHT];
 	pVertices[vertexIndex].tangent = normals[N_BACKWARD];
 	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(0.0f, 0.0f, 1.0f, 1.0f);
+	pVertices[vertexIndex].colour = blue;
 
 	pVertices[++vertexIndex].position = cubeVertices[2];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPRIGHT];
 	pVertices[vertexIndex].normal = normals[N_RIGHT];
 	pVertices[vertexIndex].tangent = normals[N_BACKWARD];
 	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(0.0f, 0.0f, 1.0f, 1.0f);
+	pVertices[vertexIndex].colour = blue;
 
 	pVertices[++vertexIndex].position = cubeVertices[6];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMRIGHT];
 	pVertices[vertexIndex].normal = normals[N_RIGHT];
 	pVertices[vertexIndex].tangent = normals[N_BACKWARD];
 	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(0.0f, 0.0f, 1.0f, 1.0f);
+	pVertices[vertexIndex].colour = blue;
 
 	pVertices[++vertexIndex].position = cubeVertices[7];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMLEFT];
 	pVertices[vertexIndex].normal = normals[N_RIGHT];
 	pVertices[vertexIndex].tangent = normals[N_BACKWARD];
 	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(0.0f, 0.0f, 1.0f, 1.0f);
+	pVertices[vertexIndex].colour = blue;
 
 	// Side 1 - Back face
+	D3DXVECTOR4 red = D3DXVECTOR4(1.0f, 0.0f, 0.0f, 1.0f);
 	pVertices[++vertexIndex].position = cubeVertices[2];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPLEFT];
 	pVertices[vertexIndex].normal = normals[N_BACKWARD];
 	pVertices[vertexIndex].tangent = normals[N_LEFT];
 	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(0.0f, 0.0f, 1.0f, 1.0f);
+	pVertices[vertexIndex].colour = red;
 
 	pVertices[++vertexIndex].position = cubeVertices[1];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPRIGHT];
 	pVertices[vertexIndex].normal = normals[N_BACKWARD];
 	pVertices[vertexIndex].tangent = normals[N_LEFT];
 	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(0.0f, 0.0f, 1.0f, 1.0f);
+	pVertices[vertexIndex].colour = red;
 
 	pVertices[++vertexIndex].position = cubeVertices[6];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMLEFT];
 	pVertices[vertexIndex].normal = normals[N_BACKWARD];
 	pVertices[vertexIndex].tangent = normals[N_LEFT];
 	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(0.0f, 0.0f, 1.0f, 1.0f);
+	pVertices[vertexIndex].colour = red;
 
 	pVertices[++vertexIndex].position = cubeVertices[1];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPRIGHT];
 	pVertices[vertexIndex].normal = normals[N_BACKWARD];
 	pVertices[vertexIndex].tangent = normals[N_LEFT];
 	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(0.0f, 0.0f, 1.0f, 1.0f);
+	pVertices[vertexIndex].colour = red;
 
 	pVertices[++vertexIndex].position = cubeVertices[5];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMRIGHT];
 	pVertices[vertexIndex].normal = normals[N_BACKWARD];
 	pVertices[vertexIndex].tangent = normals[N_LEFT];
 	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(0.0f, 0.0f, 1.0f, 1.0f);
+	pVertices[vertexIndex].colour = red;
 
 	pVertices[++vertexIndex].position = cubeVertices[6];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMLEFT];
 	pVertices[vertexIndex].normal = normals[N_BACKWARD];
 	pVertices[vertexIndex].tangent = normals[N_LEFT];
 	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(0.0f, 0.0f, 1.0f, 1.0f);
+	pVertices[vertexIndex].colour = red;
 
 	// Side 1 - Left face
+	auto orange = D3DXVECTOR4(1.0f, 0.5f, 0.0f, 1.0f);
 	pVertices[++vertexIndex].position = cubeVertices[1];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPLEFT];
 	pVertices[vertexIndex].normal = normals[N_LEFT];
 	pVertices[vertexIndex].tangent = normals[N_FORWARD];
 	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(1.0f, 0.5f, 0.0f, 1.0f);
+	pVertices[vertexIndex].colour = orange;
 
 	pVertices[++vertexIndex].position = cubeVertices[0];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPRIGHT];
 	pVertices[vertexIndex].normal = normals[N_LEFT];
 	pVertices[vertexIndex].tangent = normals[N_FORWARD];
 	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(1.0f, 0.5f, 0.0f, 1.0f);
+	pVertices[vertexIndex].colour = orange;
 
 	pVertices[++vertexIndex].position = cubeVertices[5];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMLEFT];
 	pVertices[vertexIndex].normal = normals[N_LEFT];
 	pVertices[vertexIndex].tangent = normals[N_FORWARD];
 	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(1.0f, 0.5f, 0.0f, 1.0f);
+	pVertices[vertexIndex].colour = orange;
 
 	pVertices[++vertexIndex].position = cubeVertices[0];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPRIGHT];
 	pVertices[vertexIndex].normal = normals[N_LEFT];
 	pVertices[vertexIndex].tangent = normals[N_FORWARD];
 	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(1.0f, 0.5f, 0.0f, 1.0f);
+	pVertices[vertexIndex].colour = orange;
 
 	pVertices[++vertexIndex].position = cubeVertices[4];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMRIGHT];
 	pVertices[vertexIndex].normal = normals[N_LEFT];
 	pVertices[vertexIndex].tangent = normals[N_FORWARD];
 	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(1.0f, 0.5f, 0.0f, 1.0f);
+	pVertices[vertexIndex].colour = orange;
 
 	pVertices[++vertexIndex].position = cubeVertices[5];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMLEFT];
 	pVertices[vertexIndex].normal = normals[N_LEFT];
 	pVertices[vertexIndex].tangent = normals[N_FORWARD];
 	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(1.0f, 0.5f, 0.0f, 1.0f);
+	pVertices[vertexIndex].colour = orange;
 
-	// Top Face
+	// Yellow Face
+	auto yellow = D3DXVECTOR4(1.0f, 1.0f, 0.0f, 1.0f);
 	pVertices[++vertexIndex].position = cubeVertices[1];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPLEFT];
 	pVertices[vertexIndex].normal = normals[N_UP];
 	pVertices[vertexIndex].tangent = normals[N_RIGHT];
 	pVertices[vertexIndex].biTangent = normals[N_FORWARD];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(1.0f, 1.0f, 0.0f, 1.0f);
+	pVertices[vertexIndex].colour = yellow;
 
 	pVertices[++vertexIndex].position = cubeVertices[2];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPRIGHT];
 	pVertices[vertexIndex].normal = normals[N_UP];
 	pVertices[vertexIndex].tangent = normals[N_RIGHT];
 	pVertices[vertexIndex].biTangent = normals[N_FORWARD];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(1.0f, 1.0f, 0.0f, 1.0f);
+	pVertices[vertexIndex].colour = yellow;
 
 	pVertices[++vertexIndex].position = cubeVertices[0];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMLEFT];
 	pVertices[vertexIndex].normal = normals[N_UP];
 	pVertices[vertexIndex].tangent = normals[N_RIGHT];
 	pVertices[vertexIndex].biTangent = normals[N_FORWARD];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(1.0f, 1.0f, 0.0f, 1.0f);
+	pVertices[vertexIndex].colour = yellow;
 
 	pVertices[++vertexIndex].position = cubeVertices[2];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPRIGHT];
 	pVertices[vertexIndex].normal = normals[N_UP];
 	pVertices[vertexIndex].tangent = normals[N_RIGHT];
 	pVertices[vertexIndex].biTangent = normals[N_FORWARD];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(1.0f, 1.0f, 0.0f, 1.0f);
+	pVertices[vertexIndex].colour = yellow;
 
 	pVertices[++vertexIndex].position = cubeVertices[3];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMRIGHT];
 	pVertices[vertexIndex].normal = normals[N_UP];
 	pVertices[vertexIndex].tangent = normals[N_RIGHT];
 	pVertices[vertexIndex].biTangent = normals[N_FORWARD];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(1.0f, 1.0f, 0.0f, 1.0f);
+	pVertices[vertexIndex].colour = yellow;
 
 	pVertices[++vertexIndex].position = cubeVertices[0];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMLEFT];
 	pVertices[vertexIndex].normal = normals[N_UP];
 	pVertices[vertexIndex].tangent = normals[N_RIGHT];
 	pVertices[vertexIndex].biTangent = normals[N_FORWARD];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(1.0f, 1.0f, 0.0f, 1.0f);
+	pVertices[vertexIndex].colour = yellow;
 
-	// Bottom Face
+	// White Face
+	auto white =  D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
 	pVertices[++vertexIndex].position = cubeVertices[4];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPLEFT];
 	pVertices[vertexIndex].normal = normals[N_DOWN];
 	pVertices[vertexIndex].tangent = normals[N_RIGHT];
 	pVertices[vertexIndex].biTangent = normals[N_BACKWARD];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	pVertices[vertexIndex].colour = white;
 
 	pVertices[++vertexIndex].position = cubeVertices[7];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPRIGHT];
 	pVertices[vertexIndex].normal = normals[N_DOWN];
 	pVertices[vertexIndex].tangent = normals[N_RIGHT];
 	pVertices[vertexIndex].biTangent = normals[N_BACKWARD];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	pVertices[vertexIndex].colour = white;
 
 	pVertices[++vertexIndex].position = cubeVertices[5];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMLEFT];
 	pVertices[vertexIndex].normal = normals[N_DOWN];
 	pVertices[vertexIndex].tangent = normals[N_RIGHT];
 	pVertices[vertexIndex].biTangent = normals[N_BACKWARD];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	pVertices[vertexIndex].colour = white;
 
 	pVertices[++vertexIndex].position = cubeVertices[7];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPRIGHT];
 	pVertices[vertexIndex].normal = normals[N_DOWN];
 	pVertices[vertexIndex].tangent = normals[N_RIGHT];
 	pVertices[vertexIndex].biTangent = normals[N_BACKWARD];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	pVertices[vertexIndex].colour = white;
 
 	pVertices[++vertexIndex].position = cubeVertices[6];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMRIGHT];
 	pVertices[vertexIndex].normal = normals[N_DOWN];
 	pVertices[vertexIndex].tangent = normals[N_RIGHT];
 	pVertices[vertexIndex].biTangent = normals[N_BACKWARD];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	pVertices[vertexIndex].colour = white;
 
 	pVertices[++vertexIndex].position = cubeVertices[5];
 	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMLEFT];
 	pVertices[vertexIndex].normal = normals[N_DOWN];
 	pVertices[vertexIndex].tangent = normals[N_RIGHT];
 	pVertices[vertexIndex].biTangent = normals[N_BACKWARD];
-	pVertices[vertexIndex].colour = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	pVertices[vertexIndex].colour = white;
 	// Unlock the vertex buffer...
 	l_pVertexBuffer -> Unlock();
 

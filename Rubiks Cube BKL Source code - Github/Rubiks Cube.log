@@ -1,7 +1,3 @@
 ﻿cl : command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
-cl : command line warning D9030: '/Gm' is incompatible with multiprocessing; ignoring /MP switch
-  Test4_main.cpp
-  RubikCube.cpp
-  ChildCube.cpp
-  Generating Code...
+  Face.cpp
   Rubiks Cube.vcxproj -> C:\Users\Brian\source\repos\Interactive-Rubik-Cube\Rubiks Cube BKL Source code - Github\RubiksCube.exe

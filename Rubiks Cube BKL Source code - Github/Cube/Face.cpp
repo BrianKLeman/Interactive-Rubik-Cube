@@ -1,19 +1,20 @@
 #include "Face.h"
 
 
-Face::Face()  
+RubikFace::RubikFace(Colour t_colour)  
+	: mColour(t_colour)
 {
-	mColour = Red;
+
 }
 
 
-Face::~Face(void)
+RubikFace::~RubikFace(void)
 {
 }
 
 
 // this decides based on the colour assigned, what its surface normal is
-D3DXVECTOR3 Face::GetSurfaceNormal(void)
+D3DXVECTOR3 RubikFace::GetSurfaceNormal(void)
 {
 	switch (mColour)
 	{
@@ -27,8 +28,3 @@ D3DXVECTOR3 Face::GetSurfaceNormal(void)
 	}	
 }
 
-
-void Face::SetColour(Colour t_colour)
-{
-	mColour = t_colour;
-}

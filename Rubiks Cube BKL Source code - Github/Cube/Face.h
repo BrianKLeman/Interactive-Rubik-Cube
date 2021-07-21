@@ -3,17 +3,15 @@
 #include "colour_enum.h"
 #include <d3dx9math.h>
 
-class Face
+class RubikFace
 {
 public:
-Face();
-~Face(void);
-
+	RubikFace(Colour colour);
+	~RubikFace(void);
 public:
 	Colour mColour;
-public:
+
 	// this decides based on the colour assigned, what its surface normal is
 	D3DXVECTOR3 GetSurfaceNormal(void);
-	void SetColour(Colour colour);
 };
 

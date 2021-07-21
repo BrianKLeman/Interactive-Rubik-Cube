@@ -152,11 +152,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Test4_main.cpp" />
-    <ClCompile Include="Cube\Box.cpp" />
+    <ClCompile Include="Cube\Cube.cpp" />
     <ClCompile Include="Cube\CubeTransformer.cpp" />
-    <ClCompile Include="Cube\MathLogger.cpp" />
     <ClCompile Include="Cube\RubikCube.cpp" />
-    <ClCompile Include="Cube\ChildCube.cpp" />
+    <ClCompile Include="Cube\Transform.cpp" />
     <ClCompile Include="Cube\Face.cpp" />
     <ClCompile Include="Cube\Utility.cpp" />
     <ClCompile Include="effect\HLSLEffect.cpp" />
@@ -168,10 +167,9 @@
     <ClInclude Include="High Performance Timer\HighPerformanceTimer.h" />
     <ClInclude Include="effect\HLSLEffect.h" />
     <ClInclude Include="effect\HLSLEffectWithUtilities.h" />
-    <ClInclude Include="Cube\Box.h" />
+    <ClInclude Include="Cube\Cube.h" />
     <ClInclude Include="Cube\CubeTransformer.h" />
     <ClInclude Include="Cube\colour_enum.h" />
-    <ClInclude Include="Cube\MathLogger.h" />
     <ClInclude Include="Cube\RubikCube.h" />
     <ClInclude Include="Cube\Transform.h" />
     <ClInclude Include="Cube\Face.h" />

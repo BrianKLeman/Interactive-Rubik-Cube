@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 using namespace std;
-#include "Box.h"
+#include "Cube.h"
 
 class CRubikCubeUtility
 {

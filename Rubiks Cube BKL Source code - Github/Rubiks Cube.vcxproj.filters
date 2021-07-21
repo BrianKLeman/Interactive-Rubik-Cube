@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Cube\Box.cpp">
+    <ClCompile Include="Cube\Cube.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Cube\ChildCube.cpp">
+    <ClCompile Include="Cube\Transform.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Cube\CubeTransformer.cpp">
@@ -14,9 +14,6 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="effect\HLSLEffectWithUtilities.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Cube\MathLogger.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="effect\HLSLEffect.cpp">
@@ -40,9 +37,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="effect\HLSLEffect.h" />
-    <ClInclude Include="Cube\Box.h" />
     <ClInclude Include="Cube\colour_enum.h" />
-    <ClInclude Include="Cube\MathLogger.h" />
     <ClInclude Include="Cube\Utility.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Trace.h" />
@@ -65,6 +60,9 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Cube\Face.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube\Cube.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>

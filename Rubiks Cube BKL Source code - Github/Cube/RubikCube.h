@@ -7,8 +7,7 @@ using namespace std;
 #include "colour_enum.h"
 #include "CubeTransformer.h"
 #include "Transform.h"
-#include "Box.h"
-#include "MathLogger.h"
+#include "Cube.h"
 
 
 #if defined(DEBUG) | defined(_DEBUG)
@@ -33,7 +32,7 @@ class RubikCube
 {
 private:
 	Transform mChildCubes[NBCUBES];
-	Box mBox;
+	Cube mBox;
 
 	int* GetSide( D3DXVECTOR3 normal);
 	int* FindMiddleSubjectCubes( D3DXVECTOR3 normal);

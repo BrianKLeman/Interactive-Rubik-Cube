@@ -1,7 +1,5 @@
 #include "RubikCube.h"
 
-
-
 RubikCube::RubikCube(D3DXMATRIX &view, D3DXMATRIX &proj)
 	:  mBox(view, proj)
 {	
@@ -75,8 +73,7 @@ int* RubikCube::FindMiddleSubjectCubes( D3DXVECTOR3 normal)
 	{
 		if(IsNotIntersectingWithAnyOfTheOtherCubes(i,-normal)) {inCorrectCubes2[count2] = i;count2++;}
 		
-	}
-	
+	}	
 	
 	if (count != 9 || count2 != 9) 
 		return 0;//not enough cubes found
@@ -102,23 +99,22 @@ int* RubikCube::FindMiddleSubjectCubes( D3DXVECTOR3 normal)
 bool RubikCube::IsNotIntersectingWithAnyOfTheOtherCubes(int subjectCube, D3DXVECTOR3 normal)
 {
 	//calculate end position vector
-		D3DXVECTOR3 pos(0,0,0);
-		pos.x=mChildCubes[subjectCube].mPosition.x + normal.x;
-		pos.y=mChildCubes[subjectCube].mPosition.y + normal.y;
-		pos.z=mChildCubes[subjectCube].mPosition.z + normal.z;
-		
-    //half the width of a cube
-	
+	D3DXVECTOR3 pos(0,0,0);
+	pos.x=mChildCubes[subjectCube].mPosition.x + normal.x;
+	pos.y=mChildCubes[subjectCube].mPosition.y + normal.y;
+	pos.z=mChildCubes[subjectCube].mPosition.z + normal.z;		
+
 	//check with every cube inc. subject since using an if every time will take longer and more code
 	for(int i = 0; i < NBCUBES; i++ )
 	{
 		//check x
-		if(subjectCube == i) continue;
+		if(subjectCube == i) 
+			continue;
+
 		if(((pos.x > (mChildCubes[i].mPosition.x - HALFWIDTH)) && (pos.x < (mChildCubes[i].mPosition.x + HALFWIDTH)) &&
 		   (pos.y > (mChildCubes[i].mPosition.y - HALFWIDTH)) && (pos.y < (mChildCubes[i].mPosition.y + HALFWIDTH)) &&
 		   (pos.z > (mChildCubes[i].mPosition.z - HALFWIDTH)) && (pos.z < (mChildCubes[i].mPosition.z + HALFWIDTH))   ) == true)
 		   return false; //intersection
-
 	}
 
 	return true;//a correct cube
@@ -157,40 +153,31 @@ void RubikCube::SnapCubesToPosition(void)
 	}
 }
 
-
 void RubikCube::OnRender(SIDE_SELECTED current_side,D3DXMATRIX g_orientation,bool useShader,vector<Transform*>* selectedCubes)
 {
 	static float  angle(0);
 	float flashFactor = 1.0f;	
-	if(useShader)
+	flashFactor += sin(angle++)/2;
+
+	for(int i(0); i < NBCUBES; i++) 
 	{
-		//calculate factor
-		flashFactor += sin(angle++)/2;
-		for(int i(0); i < NBCUBES; i++) 
+		if(selectedCubes != 0)
 		{
-			if(selectedCubes != 0)
+			if (IsCubeInList(&mChildCubes[i], selectedCubes, 9))
 			{
-				if (IsCubeInList(&mChildCubes[i], selectedCubes, 9))
-				{
-					HR(mBox.RenderWithEffect(g_orientation, mChildCubes[i].mOrientation, mChildCubes[i].mPosition, flashFactor));
-				}
-				else
-				{
-					HR(mBox.RenderWithEffect(g_orientation, mChildCubes[i].mOrientation, mChildCubes[i].mPosition, 1.0f));
-				}
+				HR(mBox.RenderWithEffect(g_orientation, mChildCubes[i].mOrientation, mChildCubes[i].mPosition, flashFactor));
 			}
 			else
 			{
-				HR(mBox.RenderWithEffect(g_orientation,mChildCubes[i].mOrientation,mChildCubes[i].mPosition,1.0f));
+				HR(mBox.RenderWithEffect(g_orientation, mChildCubes[i].mOrientation, mChildCubes[i].mPosition, 1.0f));
 			}
 		}
-	}
-	else
-	{
-		for(int i(0); i < NBCUBES; i++) mBox.Render(mChildCubes[i].mOrientation,mChildCubes[i].mPosition);
-	}
+		else
+		{
+			HR(mBox.RenderWithEffect(g_orientation,mChildCubes[i].mOrientation,mChildCubes[i].mPosition,1.0f));
+		}
+	}	
 }
-
 
 void RubikCube::Init(LPDIRECT3DDEVICE9 device,D3DXMATRIX& viewIn, D3DXMATRIX& projIn)
 {
@@ -208,29 +195,16 @@ bool RubikCube::InitEffect()
 	}
 }
 
-void RubikCube::LogDebug(string filename)
-{
-	
-	MathLogger debug(filename);
-	debug.writeHeader(filename);
-	for(int i = 0; i < 27; i++)
-	{
-		debug.Write(&(mChildCubes[i].mPosition),i);
-	}
-}
 
 vector<Transform*> RubikCube::GetCubesToRotate(D3DXVECTOR3 normal1,bool middle)
 {
 	int* correctCubes;
-	correctCubes = FindMiddleSubjectCubes(normal1);
-
-	
-	if(correctCubes == 0) return vector<Transform*>();
+	correctCubes = FindMiddleSubjectCubes(normal1);	
+	if(correctCubes == 0) 
+		return vector<Transform*>();
 
 	vector<Transform*> cubes_vector(9);
-
 	for(int i(0); i < 9; ++i) (cubes_vector)[i] = &mChildCubes[correctCubes[i]];
-
 	return cubes_vector;
 }
 

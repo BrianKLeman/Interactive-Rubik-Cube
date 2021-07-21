@@ -6,7 +6,7 @@
 using namespace std;
 #include "colour_enum.h"
 #include "CubeTransformer.h"
-#include "ChildCube.h"
+#include "Transform.h"
 #include "Box.h"
 #include "MathLogger.h"
 
@@ -32,7 +32,7 @@ using namespace std;
 class RubikCube
 {
 private:
-	ChildCube mChildCubes[NBCUBES];
+	Transform mChildCubes[NBCUBES];
 	Box mBox;
 
 	int* GetSide( D3DXVECTOR3 normal);
@@ -45,15 +45,15 @@ public:
 	RubikCube(D3DXMATRIX& view, D3DXMATRIX & proj);
 	~RubikCube(void);
 
-	vector<ChildCube*> GetCubesToRotate(D3DXVECTOR3 normal);
-	vector<ChildCube*> GetCubesToRotate(D3DXVECTOR3 normal1, bool middle);
+	vector<Transform*> GetCubesToRotate(D3DXVECTOR3 normal);
+	vector<Transform*> GetCubesToRotate(D3DXVECTOR3 normal1, bool middle);
 
 	bool IsComplete();
 	void SnapCubesToPosition(void);
-	bool IsCubeInList(ChildCube* subject,vector<ChildCube*>* list, int list_length);
+	bool IsCubeInList(Transform* subject,vector<Transform*>* list, int list_length);
 
 	// Rendering.
-	void OnRender(SIDE_SELECTED selected_side, D3DXMATRIX g_orientation, bool useShader, vector<ChildCube*>* selectedCubes);
+	void OnRender(SIDE_SELECTED selected_side, D3DXMATRIX g_orientation, bool useShader, vector<Transform*>* selectedCubes);
 	bool InitEffect();
 	void Init(LPDIRECT3DDEVICE9 device,D3DXMATRIX& viewIn, D3DXMATRIX& projIn);
 };

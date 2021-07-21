@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Cube\Box.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube\ChildCube.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube\CubeTransformer.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="High Performance Timer\HighPerformanceTimer.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="effect\HLSLEffectWithUtilities.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube\MathLogger.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="effect\HLSLEffect.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube\Face.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube\RubikCube.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Test4_main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Trace.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube\Utility.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="effect\HLSLEffect.h" />
+    <ClInclude Include="Cube\Box.h" />
+    <ClInclude Include="Cube\colour_enum.h" />
+    <ClInclude Include="Cube\MathLogger.h" />
+    <ClInclude Include="Cube\Utility.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Trace.h" />
+    <ClInclude Include="Cube\Transform.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube\CubeTransformer.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="High Performance Timer\HighPerformanceTimer.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="effect\HLSLEffectWithUtilities.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube\RubikCube.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="SpritePacker.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube\Face.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Options Dialog.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram11.cd" />
+    <None Include="cube.ico" />
+    <None Include="fireworks.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{69ba0b02-048c-481c-bba7-11ef3ec742b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{0534b7f0-7715-4f67-8f1d-cd60d38d1519}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

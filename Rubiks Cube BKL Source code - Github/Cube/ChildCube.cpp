@@ -3,19 +3,19 @@
 
 
 
-ChildCube::ChildCube( D3DXVECTOR3 position)
+Transform::Transform( D3DXVECTOR3 position)
 : 
 	mPosition(position)
 {	
 	D3DXMatrixIdentity(&mOrientation);
 }
 
-	ChildCube::ChildCube( void )
+	Transform::Transform( void )
 	{
 		D3DXMatrixIdentity(&mOrientation);
 	}
 
 
-ChildCube::~ChildCube(void)
+Transform::~Transform(void)
 {	
 }

@@ -173,7 +173,7 @@
     <ClInclude Include="Cube\colour_enum.h" />
     <ClInclude Include="Cube\MathLogger.h" />
     <ClInclude Include="Cube\RubikCube.h" />
-    <ClInclude Include="Cube\ChildCube.h" />
+    <ClInclude Include="Cube\Transform.h" />
     <ClInclude Include="Cube\Face.h" />
     <ClInclude Include="Cube\Utility.h" />
     <ClInclude Include="resource.h" />

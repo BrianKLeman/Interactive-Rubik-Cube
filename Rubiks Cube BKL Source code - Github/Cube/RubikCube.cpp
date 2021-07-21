@@ -10,7 +10,7 @@ RubikCube::RubikCube(D3DXMATRIX &view, D3DXMATRIX &proj)
 	for(float xPos(-1); xPos <= 1; xPos += 1) // x
 		for(float yPos(-1); yPos <= 1; yPos += 1)  // y
 			for(float zPos(-1); zPos <= 1; zPos += 1)  // z			
-				mChildCubes[array_element++] = ChildCube(D3DXVECTOR3(xPos,yPos,zPos));
+				mChildCubes[array_element++] = Transform(D3DXVECTOR3(xPos,yPos,zPos));
 }
 
 
@@ -18,14 +18,14 @@ RubikCube::~RubikCube(void)
 {
 }
 
-vector<ChildCube*> RubikCube::GetCubesToRotate(D3DXVECTOR3 normal)
+vector<Transform*> RubikCube::GetCubesToRotate(D3DXVECTOR3 normal)
 {
 	int* correctCubes = GetSide(normal);
 	
 	if(correctCubes == nullptr) 
-		return vector<ChildCube*>(0);
+		return vector<Transform*>(0);
 
-	vector<ChildCube*> cubes_vector(9);
+	vector<Transform*> cubes_vector(9);
 
 	for(int i(0); i < 9; ++i) 
 		cubes_vector[i] = &mChildCubes[correctCubes[i]];
@@ -158,7 +158,7 @@ void RubikCube::SnapCubesToPosition(void)
 }
 
 
-void RubikCube::OnRender(SIDE_SELECTED current_side,D3DXMATRIX g_orientation,bool useShader,vector<ChildCube*>* selectedCubes)
+void RubikCube::OnRender(SIDE_SELECTED current_side,D3DXMATRIX g_orientation,bool useShader,vector<Transform*>* selectedCubes)
 {
 	static float  angle(0);
 	float flashFactor = 1.0f;	
@@ -219,15 +219,15 @@ void RubikCube::LogDebug(string filename)
 	}
 }
 
-vector<ChildCube*> RubikCube::GetCubesToRotate(D3DXVECTOR3 normal1,bool middle)
+vector<Transform*> RubikCube::GetCubesToRotate(D3DXVECTOR3 normal1,bool middle)
 {
 	int* correctCubes;
 	correctCubes = FindMiddleSubjectCubes(normal1);
 
 	
-	if(correctCubes == 0) return vector<ChildCube*>();
+	if(correctCubes == 0) return vector<Transform*>();
 
-	vector<ChildCube*> cubes_vector(9);
+	vector<Transform*> cubes_vector(9);
 
 	for(int i(0); i < 9; ++i) (cubes_vector)[i] = &mChildCubes[correctCubes[i]];
 
@@ -248,7 +248,7 @@ bool RubikCube::IsComplete()
 	return true;
 }
 
-bool RubikCube::IsCubeInList( ChildCube* subject,vector<ChildCube*>* list, int list_length )
+bool RubikCube::IsCubeInList( Transform* subject,vector<Transform*>* list, int list_length )
 {
 	for(int i = 0; i < list_length;++i)
 	{

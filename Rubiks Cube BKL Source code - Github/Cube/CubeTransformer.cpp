@@ -5,7 +5,7 @@ RubiksCubeTransformer::~RubiksCubeTransformer(void)
 
 }
 
-RubiksCubeTransformer::RubiksCubeTransformer(D3DXVECTOR3 normal_t, vector<ChildCube*> cubes) : mTotalDegrees(0), mNormal(normal_t)
+RubiksCubeTransformer::RubiksCubeTransformer(D3DXVECTOR3 normal_t, vector<Transform*> cubes) : mTotalDegrees(0), mNormal(normal_t)
 {
 	mCubes = cubes;
 }
@@ -66,7 +66,7 @@ void RubiksCubeTransformer::SnapToPositions(void)
 	mTotalDegrees = 0; //reset
 
 	//now snap to positions
-	for(vector<ChildCube*>::iterator this_cube = mCubes.begin(); this_cube != mCubes.end(); this_cube++)
+	for(vector<Transform*>::iterator this_cube = mCubes.begin(); this_cube != mCubes.end(); this_cube++)
 	{
 		if((*this_cube)->mPosition.x > 0.5) 
 			(*this_cube)->mPosition.x = 1;
@@ -89,7 +89,7 @@ void RubiksCubeTransformer::SnapToPositions(void)
 	}
 }
 
-vector<ChildCube*>* RubiksCubeTransformer::GetCubes()
+vector<Transform*>* RubiksCubeTransformer::GetCubes()
 {
 	return &mCubes;
 }

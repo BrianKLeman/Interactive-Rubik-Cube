@@ -3,22 +3,22 @@
 #include <vector>
 using namespace std;
 
-#include "ChildCube.h"
+#include "Transform.h"
 
 class RubiksCubeTransformer
 {
 public:
 
-	RubiksCubeTransformer(D3DXVECTOR3 normal_t, vector<ChildCube*> cubes);
+	RubiksCubeTransformer(D3DXVECTOR3 normal_t, vector<Transform*> cubes);
 	~RubiksCubeTransformer(void);
 
  	void Rotate( int amount );
 	void SnapToPositions(void);
 	bool CanSnap();
 
-	vector<ChildCube*>* GetCubes();
+	vector<Transform*>* GetCubes();
 	
-	vector<ChildCube*> mCubes;
+	vector<Transform*> mCubes;
 	int mTotalDegrees;
 	D3DXVECTOR3 mNormal;
 };

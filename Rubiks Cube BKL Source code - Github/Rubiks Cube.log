@@ -1,3 +1,2 @@
-﻿cl : command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
-  Test4_main.cpp
-  Rubiks Cube.vcxproj -> F:\projects\visual studio projects\Visual Studio 2010\Projects\Rubiks Cube BKL - With Fireworks\source code\Rubiks Cube BKL Source code\RubiksCube.exe
+﻿Test4_main.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/SAFESEH' specification
+  Rubiks Cube.vcxproj -> C:\Users\Brian\source\repos\Interactive-Rubik-Cube\Rubiks Cube BKL Source code - Github\RubiksCube.exe

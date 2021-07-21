@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Rubiks Cube BKL Source code - Github/Debug
+/Rubiks Cube BKL Source code - Github/.vs/Rubiks Cube/v16
+/Rubiks Cube BKL Source code - Github/RubiksCube.tlog
+/.vs/Interactive-Rubik-Cube/v16
+/Rubiks Cube BKL Source code - Github/RubiksCube.ilk
+/Rubiks Cube BKL Source code - Github/Rubiks Cube.vcxproj.user

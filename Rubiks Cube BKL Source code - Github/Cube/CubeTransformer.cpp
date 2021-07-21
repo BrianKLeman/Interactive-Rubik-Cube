@@ -40,12 +40,10 @@ bool RubiksCubeTransformer::CanSnap()
 
 void RubiksCubeTransformer::SnapToPositions(void)
 {
-	//NB in one case these figures should be calculated 
 	// position x| left side position| right side positon
 	// -1		 |	-1.5			 | - 0.5
 	//  0	     |	-0.5			 | + 0.5
 	//  1	     |	+0.5			 | + 1.5
-
 	//rotate the cubes the remaining amount
 	if(mTotalDegrees <= 0)
 	{

@@ -36,21 +36,16 @@ private:
 
 	int* GetSide( D3DXVECTOR3 normal);
 	int* FindMiddleSubjectCubes( D3DXVECTOR3 normal);
-	bool CorrectCube(D3DXVECTOR3 normal);
 	bool IsNotIntersectingWithAnyOfTheOtherCubes(int subjectCube, D3DXVECTOR3 normal);
-	void LogDebug(string filename);
 
 public:
 	RubikCube(D3DXMATRIX& view, D3DXMATRIX & proj);
 	~RubikCube(void);
-
 	vector<Transform*> GetCubesToRotate(D3DXVECTOR3 normal);
 	vector<Transform*> GetCubesToRotate(D3DXVECTOR3 normal1, bool middle);
-
 	bool IsComplete();
 	void SnapCubesToPosition(void);
 	bool IsCubeInList(Transform* subject,vector<Transform*>* list, int list_length);
-
 	// Rendering.
 	void OnRender(SIDE_SELECTED selected_side, D3DXMATRIX g_orientation, bool useShader, vector<Transform*>* selectedCubes);
 	bool InitEffect();

@@ -1,12 +1,10 @@
 #include "HLSLEffect.h"
 
-
 CHLSLEffect::CHLSLEffect(LPDIRECT3DDEVICE9 device)
 {
 	l_g_pd3dDevice = device;
 	ppCompilationErrors = new LPD3DXBUFFER;
 }
-
 
 CHLSLEffect::~CHLSLEffect(void)
 {
@@ -20,8 +18,7 @@ bool CHLSLEffect::setParameter(const char* param_name,void* param,ENUM_PARAM_TYP
 	if(handle == nullptr) return false;  //FAILED TO GET HANDLE
 
 	switch(P_TYPE)
-	{
-		
+	{		
 		case P_MATRIX: return SUCCEEDED(myEffect->SetMatrix		(handle,		  	(D3DXMATRIX*)param)); break;
 		case P_VECTOR4:return SUCCEEDED(myEffect->SetVector		(handle,			(D3DXVECTOR4*)param)); break;
 		case P_FLOAT:  return SUCCEEDED(myEffect->SetFloat		(handle,    			*(FLOAT*)param)); break;
@@ -52,8 +49,7 @@ bool CHLSLEffect::setEffectTechnique(void)
 	result = myEffect->FindNextValidTechnique(NULL,&toEffectTechnique);
 	if(result == D3D_OK)
 	{
-		result = myEffect->SetTechnique(toEffectTechnique);
-		
+		result = myEffect->SetTechnique(toEffectTechnique);		
 	} 
 	return SUCCEEDED(result);
 }

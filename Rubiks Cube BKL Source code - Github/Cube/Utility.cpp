@@ -1,11 +1,10 @@
 #include "Utility.h"
 
-
 CRubikCubeUtility::CRubikCubeUtility(void)
+	: mRandomRotationCount(0)
 {
-	nRandomRotations = 0.0f;
-}
 
+}
 
 CRubikCubeUtility::~CRubikCubeUtility(void)
 {
@@ -17,7 +16,7 @@ void CRubikCubeUtility::AddRandomRotation(D3DXVECTOR3& normal,int degrees)
 	move.first 	= normal;
 	move.second = degrees;
 	moves.push_back(move);
-	nRandomRotations+=1.0f;
+	mRandomRotationCount++;
 }
 
 CRubikCubeUtility::cube_move_pair CRubikCubeUtility::getRandomRotation()
@@ -29,7 +28,7 @@ CRubikCubeUtility::cube_move_pair CRubikCubeUtility::getRandomRotation()
 		nothing.second= 0;
 		return nothing;
 	}
-	nRandomRotations-=1.0f;
+	mRandomRotationCount--;;
 	vector<cube_move_pair>::iterator last = moves.end();
 	last--;
 	cube_move_pair move = *last;

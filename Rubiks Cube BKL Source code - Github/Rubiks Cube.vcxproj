@@ -156,15 +156,14 @@
     <ClCompile Include="Cube\CubeTransformer.cpp" />
     <ClCompile Include="Cube\RubikCube.cpp" />
     <ClCompile Include="Cube\Transform.cpp" />
-    <ClCompile Include="Cube\Face.cpp" />
+    <ClCompile Include="Cube\RubikFace.cpp" />
     <ClCompile Include="Cube\Utility.cpp" />
     <ClCompile Include="effect\HLSLEffect.cpp" />
     <ClCompile Include="effect\HLSLEffectWithUtilities.cpp" />
-    <ClCompile Include="High Performance Timer\HighPerformanceTimer.cpp" />
-    <ClCompile Include="Trace.cpp" />
+    <ClCompile Include="High Performance Timer\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="High Performance Timer\HighPerformanceTimer.h" />
+    <ClInclude Include="High Performance Timer\Timer.h" />
     <ClInclude Include="effect\HLSLEffect.h" />
     <ClInclude Include="effect\HLSLEffectWithUtilities.h" />
     <ClInclude Include="Cube\Cube.h" />
@@ -176,7 +175,6 @@
     <ClInclude Include="Cube\Utility.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SpritePacker.h" />
-    <ClInclude Include="Trace.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram11.cd" />

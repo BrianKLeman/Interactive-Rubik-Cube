@@ -24,7 +24,6 @@
 #include "effect/HLSLEffectWithUtilities.h"
 //#include "Options Dialog.rc"
 #include <ctime>
-#include "Trace.h"
 #if defined(DEBUG) | defined(_DEBUG)
 #include <DxErr.h>
 #ifndef HR
@@ -293,9 +292,13 @@ HRESULT SetupD3D(HWND hWnd)
 	gpRubikCube = new RubikCube(matView, matProj); //create the cube
 	gpRubikCube->Init(g_pd3dDevice,matView,matProj);
 	useShaders = gpRubikCube->InitEffect();
-	if(!useShaders) MessageBox(NULL,"Shaders failed to initialize.","Programming is closing.",MB_OK);
+	if (!useShaders)
+	{
+		MessageBox(NULL, "Shaders failed to initialize This  program will now shut down.", "Programming is closing.", MB_OK);
+		PostQuitMessage(0);
+	}
 
-	
+
 	D3DVIEWPORT9 vp;
 	g_pd3dDevice->GetViewport(&vp);
 	 HR(g_pd3dDevice->GetRenderTarget(0, &gpPrimaryRenderTarget));

@@ -5,7 +5,7 @@
 //include directx header file for vector operations
 #define DIRECTINPUT_VERSION 0x0800
 #define D3D_DEBUG_INFO	// Enable debugging information, so the .NET environment can help you.
-#define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZW | D3DFVF_NORMAL |D3DFVF_TEX0 | D3DFVF_TEXCOORDSIZE2(0) | D3DFVF_TEX1 | D3DFVF_TEXCOORDSIZE3(1) | D3DFVF_TEX2 | D3DFVF_TEXCOORDSIZE3(2))
+#define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZW | D3DFVF_NORMAL | D3DFVF_TEX4 | D3DFVF_TEXCOORDSIZE2(0) |  D3DFVF_TEXCOORDSIZE3(1) |  D3DFVF_TEXCOORDSIZE3(2) | D3DFVF_TEXCOORDSIZE4(3) )
 
 //-----------------------------------------------------------------------------
 // Include these files
@@ -22,8 +22,8 @@ struct CUSTOMVERTEX
 	D3DXVECTOR3 normal;		// Normal
 	D3DXVECTOR2 texCoord;	// Texture co-ordinates.
 	D3DXVECTOR3 tangent;
-	D3DXVECTOR3 coTangent;
-	//DWORD colour;
+	D3DXVECTOR3 biTangent;
+	D3DXVECTOR4 colour;
 };
 #endif
 

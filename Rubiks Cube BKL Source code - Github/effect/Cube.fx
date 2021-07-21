@@ -1,6 +1,6 @@
 /*
 
-% Description of my shader.
+% This is a work in progress. I will correct it.
 % Second line of description for my shader.
 
 keywords: material classic
@@ -27,7 +27,6 @@ sampler DiffuseTexture = sampler_state
 	Texture	  = (diffuseTexture);
 };
 
-float3 textureBlendFactor = float3(1.0f,1.0f,1.0f);
 
 float4 ambientLight()
 {
@@ -79,21 +78,22 @@ struct VS_OUT
 	float3  light 		: TEXCOORD1;
 	float2 diffTexture	: TEXCOORD0;
 	float3 viewer : TEXCOORD2;
+	float4 colour : TEXCOORD3;
 };
 
 
-VS_OUT mainVS(in float4 pos : POSITION,  in float3 N:NORMAL,in float2 text : TEXCOORD0, in float3 tangent: TEXCOORD1, in float3 cotangent : TEXCOORD2)
+VS_OUT mainVS(in float4 pos : POSITION,  in float3 N:NORMAL,in float2 text : TEXCOORD0, in float3 tangent: TEXCOORD1, in float3 cotangent : TEXCOORD2, in float4 colour : TEXCOORD3)
 {	
 	VS_OUT vs_out;	
 	float3 position = mul(pos, ObjWorldView);
 	float3 light = normalize( float3(0.0f, 0.0f, 10.0f) - position);
 	vs_out.pos = mul(pos, ObjWorldViewProj);	
 	vs_out.diffTexture = text;
-	// WorldSpace To ObjectSpace To TangentSpace float4x4( float4(tangent.xyz, 0.f), float4(cotangent.xyz, 0.f), float4(N.xyz, 0.f), float4(0.f,0.f,0.f,1.0f))
 	float4x4 tangentSpace = mul( InvObjWorldView , float4x4( float4(tangent.x, cotangent.x, N.x, 0.f), float4(tangent.y, cotangent.y, N.y, 0.f), float4(tangent.z, cotangent.z, N.z, 0.f), float4(0.f,0.f,0.f,1.0f)));
 						  
 	vs_out.light = normalize(mul(float4(light.xyz,0.f), tangentSpace));
 	vs_out.viewer = normalize(mul(float4(light.xyz,0.f), tangentSpace));
+	vs_out.colour = colour;
 	return vs_out;
 }
 
@@ -104,18 +104,19 @@ float4 mainPS(in VS_OUT vs) : COLOR
 	float3 Is = float3(1.0f,1.0f,1.0f);
 	const float  Ks = 0.5f;
 	const float  a = 32.0f;
-	float3 diffuseColour = tex2D(DiffuseTexture,vs.diffTexture);	
-	diffuseColour *= textureBlendFactor;
+	float3 textureColour = tex2D(DiffuseTexture,vs.diffTexture);	
 	
-	float3 texNormal = 2.0f*(tex2D(NormalTexture,vs.diffTexture) - float3(0.5f,0.5f,0.5f));	//
-	return float4( diffuseColour*diffuseLight(vs.light, texNormal, Is, 1.f) + specularLight(vs.viewer,vs.light, texNormal, Ks, 1.0f, a), 1.f);
-	return float4( vs.light, 1.0f);
+	float3 texNormal = 2.0f*(tex2D(NormalTexture,vs.diffTexture) - float3(0.5f,0.5f,0.5f));	// Bugged here, it needs correcting, normal calculations are incorrect.
+	float3 diffuse = diffuseLight(vs.light, texNormal, Is, 1.f);
+	float3 specular = specularLight(vs.viewer,vs.light, texNormal, Ks, 1.0f, a);
+	
+	return float4(diffuse.rgb*vs.colour.rgb + specular, 1.0f);
 }
 
 technique technique0 {
 	pass p0 {
 		//CullMode = cw;
-// Set render states
+		// Set render states
 		Lighting = FALSE;
 		ZEnable = TRUE; // We want z-buffering enabled
 

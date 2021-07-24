@@ -5,7 +5,7 @@
 //include directx header file for vector operations
 #define DIRECTINPUT_VERSION 0x0800
 #define D3D_DEBUG_INFO	// Enable debugging information, so the .NET environment can help you.
-#define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZW | D3DFVF_NORMAL | D3DFVF_TEX4 | D3DFVF_TEXCOORDSIZE2(0) |  D3DFVF_TEXCOORDSIZE3(1) |  D3DFVF_TEXCOORDSIZE3(2) | D3DFVF_TEXCOORDSIZE4(3) )
+#define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZW | D3DFVF_NORMAL | D3DFVF_TEX2 | D3DFVF_TEXCOORDSIZE2(0) |  D3DFVF_TEXCOORDSIZE4(1))
 
 //-----------------------------------------------------------------------------
 // Include these files
@@ -21,8 +21,6 @@ struct CUSTOMVERTEX
     D3DXVECTOR4 position;	// Position 
 	D3DXVECTOR3 normal;		// Normal
 	D3DXVECTOR2 texCoord;	// Texture co-ordinates.
-	D3DXVECTOR3 tangent;
-	D3DXVECTOR3 biTangent;
 	D3DXVECTOR4 colour;
 };
 #endif
@@ -37,7 +35,6 @@ public:
 	
 	void SetViewProjectionMatrix(D3DXMATRIX& viewIn, D3DXMATRIX& projIn);
 	void SetObjectWorldViewTransfrom( D3DXMATRIX matIn);
-	void SetInverseObjectWorldViewTransfrom( D3DXMATRIX matIn);	
 
 	// to create the special effect for the rubiks cube
 	HRESULT createEffect(void);
@@ -45,8 +42,6 @@ public:
 	//set the parameters
 	void getHandlesToParameters();
 
-	//set Colour of face
-	void setColourOfFace(D3DXVECTOR4* colour);
 
 	//set Colour of face
 	void setFlashFactor(FLOAT colour);
@@ -54,14 +49,8 @@ public:
 	//set diffuse texture of face
 	void setDiffuseTexture();
 
-	//set normal map texture of face
-	void setNormalTexture();
-
 	//set the modelviewproj matrix
 	void setModelWorldViewProjMatrix(D3DXMATRIX matrix);	
-
-	//set the worldviewproj matrix
-	void setWorldViewProjMatrix(D3DXMATRIX matrix);
 
 	//set effect technique
 	HRESULT Cube::setEffectTechnique(void);
@@ -72,25 +61,21 @@ public:
 private:
 
 	bool setupTextures();
-	HRESULT SetupGeometry();
 	D3DXMATRIX tranScale;
 	float scaler;
 	D3DXVECTOR3 vPos;
 	D3DXMATRIX& view, & proj;
+	LPD3DXMESH m_mesh;
 	LPDIRECT3DDEVICE9       l_g_pd3dDevice; // The rendering device
 	LPDIRECT3DVERTEXBUFFER9 l_pVertexBuffer; // Buffers to hold faces
+	LPDIRECT3DINDEXBUFFER9  m_IndexBuffer;
 	LPDIRECT3DTEXTURE9		diffuseMap; // The texture.
-	LPDIRECT3DTEXTURE9		normalMap; // The texture.
 	ID3DXEffect* myEffect;				//the shader for the cube
 	LPD3DXBUFFER* ppCompilationErrors; 	//A buffer to hold the compilation errors
-	D3DXHANDLE				colourHandleOfEffect;
 	D3DXHANDLE				diffuseMapHandleOfEffect;
 	D3DXHANDLE				ObjWorldViewProjMatrixHandleOfEffect;
-	D3DXHANDLE				normalMapHandleOfEffect;
-	D3DXHANDLE				booleanHandleOfEffect;
 	D3DXHANDLE				flashHandleOfEffect;
 	D3DXHANDLE				WorldViewProjMatrixHandleOfEffect;
 	D3DXHANDLE				objWorldViewMatrixHandleOfEffect;
-	D3DXHANDLE				InvObjWorldView;
 };
 #endif

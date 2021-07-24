@@ -1,8 +1,6 @@
 #include "RubikCube.h"
 
 
-
-
 Transform::Transform( D3DXVECTOR3 position)
 : 
 	mPosition(position)
@@ -10,10 +8,10 @@ Transform::Transform( D3DXVECTOR3 position)
 	D3DXMatrixIdentity(&mOrientation);
 }
 
-	Transform::Transform( void )
-	{
-		D3DXMatrixIdentity(&mOrientation);
-	}
+Transform::Transform( void )
+{
+	D3DXMatrixIdentity(&mOrientation);
+}
 
 
 Transform::~Transform(void)

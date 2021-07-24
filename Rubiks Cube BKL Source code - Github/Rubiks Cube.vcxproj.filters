@@ -13,9 +13,6 @@
     <ClCompile Include="High Performance Timer\Timer.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="effect\HLSLEffectWithUtilities.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="effect\HLSLEffect.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -45,13 +42,7 @@
     <ClInclude Include="High Performance Timer\Timer.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="effect\HLSLEffectWithUtilities.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
     <ClInclude Include="Cube\RubikCube.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="SpritePacker.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Cube\Face.h">

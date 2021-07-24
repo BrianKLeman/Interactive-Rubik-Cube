@@ -29,358 +29,22 @@ Cube::~Cube()
 void Cube::init(LPDIRECT3DDEVICE9 device)
 {
 	l_g_pd3dDevice = device;
-	//setup the geometry
-	SetupGeometry();
+
+	D3DXLoadMeshFromX("effect/cube.x", D3DXMESH_MANAGED, l_g_pd3dDevice, nullptr, nullptr, nullptr, nullptr, &m_mesh);
+	m_mesh->GetVertexBuffer(&l_pVertexBuffer);
+	m_mesh->GetIndexBuffer(&m_IndexBuffer);
 	//set up the textures
 	setupTextures();
 }
 
-HRESULT Cube::SetupGeometry()
-{
-	// Calculate the number of vertices required, and the size of the buffer to hold them.
-	int Vertices = 36;	// 6
-	int BufferSize = Vertices * sizeof(CUSTOMVERTEX);
-
-	// Create the vertex buffer.
-	if (FAILED(l_g_pd3dDevice -> CreateVertexBuffer(BufferSize, 0, D3DFVF_CUSTOMVERTEX, D3DPOOL_DEFAULT, &l_pVertexBuffer, NULL)))
-	{
-		return E_FAIL; // if the vertex buffer could not be created.
-	}
-
-	// Fill the buffer with appropriate vertices to describe the cube...
-
-	// Create a pointer to the first vertex in the buffer.
-	CUSTOMVERTEX *pVertices = new CUSTOMVERTEX[Vertices];
-	ZeroMemory(pVertices, BufferSize);
-    if (FAILED(l_pVertexBuffer -> Lock(0, 0, (void**)&pVertices, 0)))
-    {
-		return E_FAIL;  // if the pointer to the vertex buffer could not be established.
-	}
-
-	// Fill the vertex buffers with data...
-	const float length = 0.5;
-	//        1--------------2
-	//       /|             /|
-	//      / |            / |
-    //     /  |           /  |
-	//    0---+----------3   |
-	//    |   5----------+---6
-	//    |  /           |  /
-	//    | /            | /
-	//    |/             |/
-	//    4--------------7
-
-	D3DXVECTOR4 cubeVertices[8] = 
-	{
-		D3DXVECTOR4(-length, length, length,1.0f),
-		D3DXVECTOR4(-length, length,-length,1.0f),
-		D3DXVECTOR4( length, length,-length,1.0f),
-		D3DXVECTOR4( length, length, length,1.0f),
-
-		D3DXVECTOR4(-length,-length, length,1.0f),
-		D3DXVECTOR4(-length,-length,-length,1.0f),
-		D3DXVECTOR4( length,-length,-length,1.0f),
-		D3DXVECTOR4( length,-length, length,1.0f)
-	};
-
-	D3DXVECTOR3 normals[6] = 
-	{
-		D3DXVECTOR3(1.f, 0.f, 0.f), // Right = 0
-		D3DXVECTOR3(-1.f, 0.f, 0.f), // Left = 1
-		D3DXVECTOR3(0.f, 0.f, 1.f), // Forward = 2
-		D3DXVECTOR3(0.f, 0.f,-1.f), // Backward =3
-		D3DXVECTOR3(0.f, 1.f, 0.f), // Up = 4
-		D3DXVECTOR3(0.f,-1.f, 0.f)  // Down = 5
-	};
-	enum NORMALS { N_RIGHT = 0, N_LEFT = 1, N_FORWARD = 2, N_BACKWARD=3, N_UP = 4, N_DOWN = 5};
-
-	D3DXVECTOR2 texCoords[4] =
-	{
-		D3DXVECTOR2(0.f, 0.f), // Top Left Corner = 0
-		D3DXVECTOR2(1.f, 0.f), // Top Right Corner = 1
-		D3DXVECTOR2(0.f, 1.f), // Bottom Left Corner = 2
-		D3DXVECTOR2(1.f, 1.f)  // Bottom Right Corner = 3
-	};
-	enum TEX_COORDS { TEXCOORD_TOPLEFT = 0, TEXCOORD_TOPRIGHT = 1, TEXCOORD_BOTTOMLEFT = 2, TEXCOORD_BOTTOMRIGHT = 3};
-
-	int vertexIndex = 0;
-	// Side 1 - Green face
-	auto green = D3DXVECTOR4(0.0f, 1.0f, 0.0f, 1.0f);
-	pVertices[vertexIndex].position = cubeVertices[0];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPLEFT];
-	pVertices[vertexIndex].normal = normals[N_FORWARD];
-	pVertices[vertexIndex].tangent = normals[N_RIGHT];
-	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = green;
-
-	pVertices[++vertexIndex].position = cubeVertices[3];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPRIGHT];
-	pVertices[vertexIndex].normal = normals[N_FORWARD];
-	pVertices[vertexIndex].tangent = normals[N_RIGHT];
-	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = green;
-
-	pVertices[++vertexIndex].position = cubeVertices[4];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMLEFT];
-	pVertices[vertexIndex].normal = normals[N_FORWARD];
-	pVertices[vertexIndex].tangent = normals[N_RIGHT];
-	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = green;
-
-	pVertices[++vertexIndex].position = cubeVertices[3];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPRIGHT];
-	pVertices[vertexIndex].normal = normals[N_FORWARD];
-	pVertices[vertexIndex].tangent = normals[N_RIGHT];
-	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = green;
-
-	pVertices[++vertexIndex].position = cubeVertices[7];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMRIGHT];
-	pVertices[vertexIndex].normal = normals[N_FORWARD];
-	pVertices[vertexIndex].tangent = normals[N_RIGHT];
-	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = green;
-
-	pVertices[++vertexIndex].position = cubeVertices[4];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMLEFT];
-	pVertices[vertexIndex].normal = normals[N_FORWARD];
-	pVertices[vertexIndex].tangent = normals[N_RIGHT];
-	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = green;
-
-	// Side 1 - Right face
-	auto blue = D3DXVECTOR4(0.0f, 0.0f, 1.0f, 1.0f);
-	pVertices[++vertexIndex].position = cubeVertices[3];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPLEFT];
-	pVertices[vertexIndex].normal = normals[N_RIGHT];
-	pVertices[vertexIndex].tangent = normals[N_BACKWARD]; 
-	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = blue;
-
-	pVertices[++vertexIndex].position = cubeVertices[2];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPRIGHT];
-	pVertices[vertexIndex].normal = normals[N_RIGHT];
-	pVertices[vertexIndex].tangent = normals[N_BACKWARD];
-	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = blue;
-
-	pVertices[++vertexIndex].position = cubeVertices[7];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMLEFT];
-	pVertices[vertexIndex].normal = normals[N_RIGHT];
-	pVertices[vertexIndex].tangent = normals[N_BACKWARD];
-	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = blue;
-
-	pVertices[++vertexIndex].position = cubeVertices[2];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPRIGHT];
-	pVertices[vertexIndex].normal = normals[N_RIGHT];
-	pVertices[vertexIndex].tangent = normals[N_BACKWARD];
-	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = blue;
-
-	pVertices[++vertexIndex].position = cubeVertices[6];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMRIGHT];
-	pVertices[vertexIndex].normal = normals[N_RIGHT];
-	pVertices[vertexIndex].tangent = normals[N_BACKWARD];
-	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = blue;
-
-	pVertices[++vertexIndex].position = cubeVertices[7];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMLEFT];
-	pVertices[vertexIndex].normal = normals[N_RIGHT];
-	pVertices[vertexIndex].tangent = normals[N_BACKWARD];
-	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = blue;
-
-	// Side 1 - Back face
-	D3DXVECTOR4 red = D3DXVECTOR4(1.0f, 0.0f, 0.0f, 1.0f);
-	pVertices[++vertexIndex].position = cubeVertices[2];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPLEFT];
-	pVertices[vertexIndex].normal = normals[N_BACKWARD];
-	pVertices[vertexIndex].tangent = normals[N_LEFT];
-	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = red;
-
-	pVertices[++vertexIndex].position = cubeVertices[1];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPRIGHT];
-	pVertices[vertexIndex].normal = normals[N_BACKWARD];
-	pVertices[vertexIndex].tangent = normals[N_LEFT];
-	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = red;
-
-	pVertices[++vertexIndex].position = cubeVertices[6];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMLEFT];
-	pVertices[vertexIndex].normal = normals[N_BACKWARD];
-	pVertices[vertexIndex].tangent = normals[N_LEFT];
-	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = red;
-
-	pVertices[++vertexIndex].position = cubeVertices[1];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPRIGHT];
-	pVertices[vertexIndex].normal = normals[N_BACKWARD];
-	pVertices[vertexIndex].tangent = normals[N_LEFT];
-	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = red;
-
-	pVertices[++vertexIndex].position = cubeVertices[5];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMRIGHT];
-	pVertices[vertexIndex].normal = normals[N_BACKWARD];
-	pVertices[vertexIndex].tangent = normals[N_LEFT];
-	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = red;
-
-	pVertices[++vertexIndex].position = cubeVertices[6];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMLEFT];
-	pVertices[vertexIndex].normal = normals[N_BACKWARD];
-	pVertices[vertexIndex].tangent = normals[N_LEFT];
-	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = red;
-
-	// Side 1 - Left face
-	auto orange = D3DXVECTOR4(1.0f, 0.5f, 0.0f, 1.0f);
-	pVertices[++vertexIndex].position = cubeVertices[1];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPLEFT];
-	pVertices[vertexIndex].normal = normals[N_LEFT];
-	pVertices[vertexIndex].tangent = normals[N_FORWARD];
-	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = orange;
-
-	pVertices[++vertexIndex].position = cubeVertices[0];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPRIGHT];
-	pVertices[vertexIndex].normal = normals[N_LEFT];
-	pVertices[vertexIndex].tangent = normals[N_FORWARD];
-	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = orange;
-
-	pVertices[++vertexIndex].position = cubeVertices[5];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMLEFT];
-	pVertices[vertexIndex].normal = normals[N_LEFT];
-	pVertices[vertexIndex].tangent = normals[N_FORWARD];
-	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = orange;
-
-	pVertices[++vertexIndex].position = cubeVertices[0];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPRIGHT];
-	pVertices[vertexIndex].normal = normals[N_LEFT];
-	pVertices[vertexIndex].tangent = normals[N_FORWARD];
-	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = orange;
-
-	pVertices[++vertexIndex].position = cubeVertices[4];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMRIGHT];
-	pVertices[vertexIndex].normal = normals[N_LEFT];
-	pVertices[vertexIndex].tangent = normals[N_FORWARD];
-	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = orange;
-
-	pVertices[++vertexIndex].position = cubeVertices[5];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMLEFT];
-	pVertices[vertexIndex].normal = normals[N_LEFT];
-	pVertices[vertexIndex].tangent = normals[N_FORWARD];
-	pVertices[vertexIndex].biTangent = normals[N_DOWN];
-	pVertices[vertexIndex].colour = orange;
-
-	// Yellow Face
-	auto yellow = D3DXVECTOR4(1.0f, 1.0f, 0.0f, 1.0f);
-	pVertices[++vertexIndex].position = cubeVertices[1];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPLEFT];
-	pVertices[vertexIndex].normal = normals[N_UP];
-	pVertices[vertexIndex].tangent = normals[N_RIGHT];
-	pVertices[vertexIndex].biTangent = normals[N_FORWARD];
-	pVertices[vertexIndex].colour = yellow;
-
-	pVertices[++vertexIndex].position = cubeVertices[2];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPRIGHT];
-	pVertices[vertexIndex].normal = normals[N_UP];
-	pVertices[vertexIndex].tangent = normals[N_RIGHT];
-	pVertices[vertexIndex].biTangent = normals[N_FORWARD];
-	pVertices[vertexIndex].colour = yellow;
-
-	pVertices[++vertexIndex].position = cubeVertices[0];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMLEFT];
-	pVertices[vertexIndex].normal = normals[N_UP];
-	pVertices[vertexIndex].tangent = normals[N_RIGHT];
-	pVertices[vertexIndex].biTangent = normals[N_FORWARD];
-	pVertices[vertexIndex].colour = yellow;
-
-	pVertices[++vertexIndex].position = cubeVertices[2];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPRIGHT];
-	pVertices[vertexIndex].normal = normals[N_UP];
-	pVertices[vertexIndex].tangent = normals[N_RIGHT];
-	pVertices[vertexIndex].biTangent = normals[N_FORWARD];
-	pVertices[vertexIndex].colour = yellow;
-
-	pVertices[++vertexIndex].position = cubeVertices[3];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMRIGHT];
-	pVertices[vertexIndex].normal = normals[N_UP];
-	pVertices[vertexIndex].tangent = normals[N_RIGHT];
-	pVertices[vertexIndex].biTangent = normals[N_FORWARD];
-	pVertices[vertexIndex].colour = yellow;
-
-	pVertices[++vertexIndex].position = cubeVertices[0];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMLEFT];
-	pVertices[vertexIndex].normal = normals[N_UP];
-	pVertices[vertexIndex].tangent = normals[N_RIGHT];
-	pVertices[vertexIndex].biTangent = normals[N_FORWARD];
-	pVertices[vertexIndex].colour = yellow;
-
-	// White Face
-	auto white =  D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
-	pVertices[++vertexIndex].position = cubeVertices[4];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPLEFT];
-	pVertices[vertexIndex].normal = normals[N_DOWN];
-	pVertices[vertexIndex].tangent = normals[N_RIGHT];
-	pVertices[vertexIndex].biTangent = normals[N_BACKWARD];
-	pVertices[vertexIndex].colour = white;
-
-	pVertices[++vertexIndex].position = cubeVertices[7];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPRIGHT];
-	pVertices[vertexIndex].normal = normals[N_DOWN];
-	pVertices[vertexIndex].tangent = normals[N_RIGHT];
-	pVertices[vertexIndex].biTangent = normals[N_BACKWARD];
-	pVertices[vertexIndex].colour = white;
-
-	pVertices[++vertexIndex].position = cubeVertices[5];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMLEFT];
-	pVertices[vertexIndex].normal = normals[N_DOWN];
-	pVertices[vertexIndex].tangent = normals[N_RIGHT];
-	pVertices[vertexIndex].biTangent = normals[N_BACKWARD];
-	pVertices[vertexIndex].colour = white;
-
-	pVertices[++vertexIndex].position = cubeVertices[7];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_TOPRIGHT];
-	pVertices[vertexIndex].normal = normals[N_DOWN];
-	pVertices[vertexIndex].tangent = normals[N_RIGHT];
-	pVertices[vertexIndex].biTangent = normals[N_BACKWARD];
-	pVertices[vertexIndex].colour = white;
-
-	pVertices[++vertexIndex].position = cubeVertices[6];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMRIGHT];
-	pVertices[vertexIndex].normal = normals[N_DOWN];
-	pVertices[vertexIndex].tangent = normals[N_RIGHT];
-	pVertices[vertexIndex].biTangent = normals[N_BACKWARD];
-	pVertices[vertexIndex].colour = white;
-
-	pVertices[++vertexIndex].position = cubeVertices[5];
-	pVertices[vertexIndex].texCoord = texCoords[TEXCOORD_BOTTOMLEFT];
-	pVertices[vertexIndex].normal = normals[N_DOWN];
-	pVertices[vertexIndex].tangent = normals[N_RIGHT];
-	pVertices[vertexIndex].biTangent = normals[N_BACKWARD];
-	pVertices[vertexIndex].colour = white;
-	// Unlock the vertex buffer...
-	l_pVertexBuffer -> Unlock();
-
-	return S_OK;
-}
-
 bool Cube::setupTextures()
 {	
-	D3DXCreateTextureFromFile(l_g_pd3dDevice, "textures/rubik_texture.jpg", &diffuseMap);
-	D3DXCreateTextureFromFile(l_g_pd3dDevice, "textures/rubik_bump.jpg", &normalMap);
+	const char* textureFilename = "textures/rubik_texture.jpg";
+	D3DXCreateTextureFromFile(l_g_pd3dDevice, textureFilename, &diffuseMap);
 
-	if(diffuseMap == nullptr || normalMap == nullptr) 
+	if(diffuseMap == nullptr) 
 	{
-		MessageBox(NULL,"Texture","failed to load texture",MB_OK);
+		MessageBox(NULL, textureFilename,"failed to load file.",MB_OK);
 		return false;
 	}
 
@@ -401,11 +65,9 @@ HRESULT Cube::RenderWithEffect(D3DXMATRIX g_orientation,D3DXMATRIX orientation, 
 		//create worldviewproj matrix
 		D3DXMatrixMultiply(&WorldViewProjectionMatrix, &identity, &view	);
 		D3DXMatrixMultiply(&WorldViewProjectionMatrix, &WorldViewProjectionMatrix, &proj);
-		setWorldViewProjMatrix(WorldViewProjectionMatrix);
 
 		//create modelworld matrix
 		D3DXMatrixIdentity(&object);
-		
 		D3DXMatrixTranslation(&object,position.x,position.y,position.z);
 		D3DXMatrixMultiply(&object,&orientation,&object	);
 		D3DXMatrixMultiply(&objectWorld,&object,&g_orientation);
@@ -414,10 +76,6 @@ HRESULT Cube::RenderWithEffect(D3DXMATRIX g_orientation,D3DXMATRIX orientation, 
 		D3DXMatrixMultiply( &objectWorldView, &objectWorld, &view	);
 		SetObjectWorldViewTransfrom(objectWorldView);
 
-		D3DXMATRIX inverseObjectWorldView;
-		FLOAT determinent = D3DXMatrixDeterminant(&objectWorldView);
-		D3DXMatrixInverse( &inverseObjectWorldView, &determinent, &objectWorldView);
-		SetInverseObjectWorldViewTransfrom(inverseObjectWorldView);
 		//create ModelWorldViewProj
 		D3DXMatrixMultiply( &WorldViewProjectionMatrix, &objectWorldView, &proj);
 		
@@ -425,11 +83,12 @@ HRESULT Cube::RenderWithEffect(D3DXMATRIX g_orientation,D3DXMATRIX orientation, 
 		setModelWorldViewProjMatrix(WorldViewProjectionMatrix);		
 
 	   	// Render the contents of the vertex buffer.
-		l_g_pd3dDevice -> SetFVF(D3DFVF_CUSTOMVERTEX);
-	    l_g_pd3dDevice -> SetStreamSource(0, l_pVertexBuffer, 0, sizeof(CUSTOMVERTEX));
-
+		l_g_pd3dDevice -> SetFVF(m_mesh->GetFVF());		
+	    l_g_pd3dDevice -> SetStreamSource(0, l_pVertexBuffer, 0, m_mesh->GetNumBytesPerVertex());
 		UINT nbPasses(0);
 		
+	
+		l_g_pd3dDevice->SetIndices(m_IndexBuffer);
 		setFlashFactor(flashFactor);
 		myEffect->CommitChanges();
 		result = myEffect->Begin(&nbPasses,0);
@@ -437,9 +96,8 @@ HRESULT Cube::RenderWithEffect(D3DXMATRIX g_orientation,D3DXMATRIX orientation, 
 		{
 			myEffect->BeginPass(i);
 
-	        l_g_pd3dDevice -> DrawPrimitive(D3DPT_TRIANGLELIST, 0, 12);			
+	        l_g_pd3dDevice -> DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, m_mesh->GetNumVertices(),0, m_mesh->GetNumFaces());			
 			
-
 			myEffect->EndPass();
 		}
 
@@ -463,8 +121,7 @@ HRESULT Cube::setEffectTechnique(void)
 	result = myEffect->FindNextValidTechnique(NULL,&toEffectTechnique);
 	if(result == D3D_OK)
 	{
-		result = myEffect->SetTechnique(toEffectTechnique);
-		
+		result = myEffect->SetTechnique(toEffectTechnique);		
 	} 
 
 	return result;
@@ -479,20 +136,12 @@ void Cube::getHandlesToParameters(void)
 	diffuseMapHandleOfEffect = myEffect->GetParameterByName(NULL,"diffuseTexture");
 	if(diffuseMapHandleOfEffect == NULL) MessageBox(NULL,"failed to get handle to param","effect failed",MB_OK);
 
-	normalMapHandleOfEffect = myEffect->GetParameterByName(NULL,"normalTexture");
-	if(normalMapHandleOfEffect == NULL) MessageBox(NULL,"failed to get handle to param","effect failed",MB_OK);
-
 	flashHandleOfEffect = myEffect->GetParameterByName(NULL,"textureFlashFactor");
-	if(normalMapHandleOfEffect == NULL) MessageBox(NULL,"failed to get handle to param","effect failed",MB_OK);
-
-	WorldViewProjMatrixHandleOfEffect = myEffect->GetParameterByName(NULL,"WorldViewProj");
-	if(WorldViewProjMatrixHandleOfEffect == NULL) MessageBox(NULL,"failed to get handle to param","effect failed",MB_OK);
+	if(flashHandleOfEffect == NULL) MessageBox(NULL,"failed to get handle to param","effect failed",MB_OK);
 
 	objWorldViewMatrixHandleOfEffect = myEffect->GetParameterByName(NULL,"ObjWorldView");
 	if(WorldViewProjMatrixHandleOfEffect == NULL) MessageBox(NULL,"failed to get handle to param","effect failed",MB_OK);
 
-	InvObjWorldView = myEffect->GetParameterByName(NULL,"InvObjWorldView");
-	if(InvObjWorldView == NULL) MessageBox(NULL,"failed to get handle to param","effect failed",MB_OK);	
 }
 
 void Cube::setFlashFactor(FLOAT colour)
@@ -508,22 +157,11 @@ HRESULT Cube::setupEffect()
 	
 	if(result == D3D_OK)
 	{
-		getHandlesToParameters();
-		
-		//set the textures
-		setNormalTexture();
+		getHandlesToParameters();		
 		setDiffuseTexture();
-
-		result = setEffectTechnique();
-		
-		return result;
+		return setEffectTechnique();		
 	}
 	return result;
-}
-
-void Cube::setColourOfFace(D3DXVECTOR4* colour)
-{
-	if(myEffect->SetVector(colourHandleOfEffect,colour) != D3D_OK) MessageBox(NULL,"SET COLOUR FAILED","COLOUR",MB_OK);
 }
 
 void Cube::setDiffuseTexture()
@@ -531,20 +169,9 @@ void Cube::setDiffuseTexture()
 	if(myEffect->SetTexture(diffuseMapHandleOfEffect,diffuseMap) != D3D_OK) MessageBox(NULL,"SET TEXTURE FAILED","TEXTURE",MB_OK);	
 }
 
-void Cube::setNormalTexture()
-{
-	if(myEffect->SetTexture(normalMapHandleOfEffect,normalMap) != D3D_OK) MessageBox(NULL,"SET TEXTURE FAILED","TEXTURE",MB_OK);
-}
-
 void Cube::setModelWorldViewProjMatrix(D3DXMATRIX matrix)
 {
 	if(myEffect->SetMatrix(ObjWorldViewProjMatrixHandleOfEffect,&matrix) != D3D_OK) MessageBox(NULL,"SET MATRIX FAILED","MATRIX",MB_OK);
-}
-
-//set the modelviewproj matrix
-void Cube::setWorldViewProjMatrix(D3DXMATRIX matrix)
-{
-	if(myEffect->SetMatrix(WorldViewProjMatrixHandleOfEffect,&matrix)!=D3D_OK) MessageBox(NULL,"SET ORIENTATION MATRIX FAILED","MATRIX",MB_OK) ;
 }
 
 void Cube::SetViewProjectionMatrix( D3DXMATRIX& viewIn, D3DXMATRIX& projIn )
@@ -555,9 +182,4 @@ void Cube::SetViewProjectionMatrix( D3DXMATRIX& viewIn, D3DXMATRIX& projIn )
 void Cube::SetObjectWorldViewTransfrom( D3DXMATRIX matIn )
 {
 	if(myEffect->SetMatrix(objWorldViewMatrixHandleOfEffect,&matIn)!=D3D_OK) MessageBox(NULL,"SET ORIENTATION MATRIX FAILED","MATRIX",MB_OK) ;
-}
-
-void Cube::SetInverseObjectWorldViewTransfrom( D3DXMATRIX matIn )
-{
-	if(myEffect->SetMatrix(InvObjWorldView,&matIn)!=D3D_OK) MessageBox(NULL,"SET ORIENTATION MATRIX FAILED","MATRIX",MB_OK) ;
 }

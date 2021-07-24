@@ -21,8 +21,6 @@
 #include "Cube/RubikCube.h" //this rubiks cube class
 #include "resource.h"
 #include "effect/HLSLEffect.h"
-#include "effect/HLSLEffectWithUtilities.h"
-//#include "Options Dialog.rc"
 #include <ctime>
 #if defined(DEBUG) | defined(_DEBUG)
 #include <DxErr.h>
@@ -80,9 +78,6 @@ void CleanUp();
 
 D3DXMATRIX orientation;
 float last_update(0), interval(0.0f);
-CHLSLEffectWithUtilities* effect1(nullptr);
-CHLSLEffectWithUtilities* effect2(nullptr);
-CHLSLEffectWithUtilities::vertex_info vertices_struct, vertices_struct_background;
 D3DXVECTOR3 colour(1.0f,1.0f,1.0f);
 D3DXMATRIX matViewFW, matProjFW;
 D3DXVECTOR3 vCameraFW(00.0f, 00.0f, -10.0f);

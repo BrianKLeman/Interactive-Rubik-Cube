@@ -3,7 +3,7 @@
 
 Cube::Cube(D3DXMATRIX& view, D3DXMATRIX& proj):
 scaler(1.0),vPos(0.0,0.0,0.0),l_g_pd3dDevice(0),
-l_pVertexBuffer(0), diffuseMap(0), view(view), proj(proj)
+l_pVertexBuffer(0), view(view), proj(proj)
 {
 	D3DXMATRIX tran;
 	D3DXMatrixIdentity(&tran);
@@ -17,8 +17,7 @@ l_pVertexBuffer(0), diffuseMap(0), view(view), proj(proj)
 }
 
 Cube::~Cube()
-{		// Delete the texture.
-	if (diffuseMap != nullptr)	 diffuseMap -> Release();
+{
 	// Release the other resources...
     if (l_pVertexBuffer != nullptr) l_pVertexBuffer -> Release();	
 }
@@ -33,22 +32,6 @@ void Cube::init(LPDIRECT3DDEVICE9 device)
 	D3DXLoadMeshFromX("effect/cube.x", D3DXMESH_MANAGED, l_g_pd3dDevice, nullptr, nullptr, nullptr, nullptr, &m_mesh);
 	m_mesh->GetVertexBuffer(&l_pVertexBuffer);
 	m_mesh->GetIndexBuffer(&m_IndexBuffer);
-	//set up the textures
-	setupTextures();
-}
-
-bool Cube::setupTextures()
-{	
-	const char* textureFilename = "textures/rubik_texture.jpg";
-	D3DXCreateTextureFromFile(l_g_pd3dDevice, textureFilename, &diffuseMap);
-
-	if(diffuseMap == nullptr) 
-	{
-		MessageBox(NULL, textureFilename,"failed to load file.",MB_OK);
-		return false;
-	}
-
-	return true;
 }
 
 HRESULT Cube::RenderWithEffect(D3DXMATRIX g_orientation,D3DXMATRIX orientation, D3DXVECTOR3 position, FLOAT flashFactor)
@@ -133,9 +116,6 @@ void Cube::getHandlesToParameters(void)
 	ObjWorldViewProjMatrixHandleOfEffect = myEffect->GetParameterByName(NULL,"ObjWorldViewProj");
 	if(ObjWorldViewProjMatrixHandleOfEffect == NULL) MessageBox(NULL,"failed to get handle to param","effect failed",MB_OK);
 
-	diffuseMapHandleOfEffect = myEffect->GetParameterByName(NULL,"diffuseTexture");
-	if(diffuseMapHandleOfEffect == NULL) MessageBox(NULL,"failed to get handle to param","effect failed",MB_OK);
-
 	flashHandleOfEffect = myEffect->GetParameterByName(NULL,"textureFlashFactor");
 	if(flashHandleOfEffect == NULL) MessageBox(NULL,"failed to get handle to param","effect failed",MB_OK);
 
@@ -157,16 +137,10 @@ HRESULT Cube::setupEffect()
 	
 	if(result == D3D_OK)
 	{
-		getHandlesToParameters();		
-		setDiffuseTexture();
+		getHandlesToParameters();	
 		return setEffectTechnique();		
 	}
 	return result;
-}
-
-void Cube::setDiffuseTexture()
-{
-	if(myEffect->SetTexture(diffuseMapHandleOfEffect,diffuseMap) != D3D_OK) MessageBox(NULL,"SET TEXTURE FAILED","TEXTURE",MB_OK);	
 }
 
 void Cube::setModelWorldViewProjMatrix(D3DXMATRIX matrix)

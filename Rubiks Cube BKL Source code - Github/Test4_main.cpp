@@ -18,7 +18,7 @@
 #include <DxErr.h>
 #include "Cube/colour_enum.h"
 #include "Cube/Utility.h"
-#include "Cube/RubikCube.h" //this rubiks cube class
+#include "Cube/RubikCube.h"
 #include "resource.h"
 #include "effect/HLSLEffect.h"
 #include <ctime>
@@ -55,11 +55,11 @@ CRubikCubeUtility cube_utility;
 D3DXMATRIX matView;
 D3DXMATRIX matProj;
 SIDE_SELECTED current_side(NONE);
-LPDIRECT3D9					g_pD3D							= NULL; // The D3D object
-LPDIRECT3DDEVICE9      g_pd3dDevice				= NULL; // The rendering device
-LPDIRECTINPUT8			g_pDI							= NULL; // The Direct Input object
-LPDIRECTINPUTDEVICE8	g_pDIMouseDevice			= NULL; // The Direct Input mouse device.
-LPDIRECTINPUTDEVICE8 g_pDIKeyboardDevice	= NULL; // The Direct Input keyboard device.
+LPDIRECT3D9					g_pD3D = NULL; // The D3D object
+LPDIRECT3DDEVICE9      g_pd3dDevice = NULL; // The rendering device
+LPDIRECTINPUT8			g_pDI = NULL; // The Direct Input object
+LPDIRECTINPUTDEVICE8	g_pDIMouseDevice = NULL; // The Direct Input mouse device.
+LPDIRECTINPUTDEVICE8 g_pDIKeyboardDevice = NULL; // The Direct Input keyboard device.
 
 // Global variables
  D3DXVECTOR3 vCamera(00.0f, 0.0f, 10.0f);
@@ -197,43 +197,6 @@ void alterCubeByRandom(int n_times=3)
 	}
 }
 
-int WINAPI dlgProc(HWND hDlg, UINT uMsg,WPARAM wParam, LPARAM lParam)
-{	
-	switch (uMsg) 
-    { 
-        case WM_COMMAND: 
-            switch (LOWORD(wParam)) 
-            { 
-                case IDOK: 
-                case IDCANCEL: 
-                    EndDialog(hDlg, wParam); 
-                    return TRUE; 
-				case IDC_RADIO1:
-					randomMoves = 3;
-					return TRUE;
-				case IDC_RADIO2:
-					randomMoves = 9;
-					return TRUE;
-				case IDC_RADIO3:
-					randomMoves = 27;
-					return TRUE;
-				case IDC_BUTTON2:
-					randomMoves = 0;
-					 EndDialog(hDlg, wParam); 
-					return TRUE;
-				case IDC_BUTTON1:
-					 EndDialog(hDlg, wParam); 
-					return TRUE;
-            } 
-    } 
-    return FALSE; 
-}
-
-void setupOptions()
-{	
-	DialogBoxA(inst,MAKEINTRESOURCE(101),hwnd,&dlgProc);
-	alterCubeByRandom(randomMoves);
-}
 
 void RotateMatrix(D3DXMATRIX* orientation,float angleX,float angleY,float angleZ)
 {
@@ -292,7 +255,6 @@ HRESULT SetupD3D(HWND hWnd)
 		MessageBox(NULL, "Shaders failed to initialize This  program will now shut down.", "Programming is closing.", MB_OK);
 		PostQuitMessage(0);
 	}
-
 
 	D3DVIEWPORT9 vp;
 	g_pd3dDevice->GetViewport(&vp);
@@ -362,7 +324,6 @@ void SetupViewMatrices()
 	// This defines which way the 'camera' will look at, and which way is up.
     D3DXVECTOR3 vUpVector(0.0f, 1.0f, 0.0f);    
     D3DXMatrixLookAtRH( &matView, &vCamera, &vLookat, &vUpVector);
-    //g_pd3dDevice -> SetTransform(D3DTS_VIEW, &matView);
 
 	// Set up the projection matrix.
 	// This transforms 2D geometry into a 3D space.    
@@ -629,7 +590,6 @@ LRESULT WINAPI MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int)
 {
     // Register the window class
-	// Register the window class.
 	WNDCLASSEX wc = { sizeof(WNDCLASSEX) };
 	wc.style         = CS_HREDRAW | CS_VREDRAW;
 	wc.lpfnWndProc   = MsgProc;
@@ -637,8 +597,7 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int)
 	wc.cbWndExtra    = sizeof(LONG_PTR);
 	wc.hInstance     = hInst;
 	wc.hbrBackground = NULL;
-	// The main menu is no longer required.
-	wc.lpszMenuName  =  NULL; // MAKEINTRESOURCE(IDR_MAIN);
+	wc.lpszMenuName  =  NULL;
 	wc.hCursor       = NULL;
 	
 	wc.lpszClassName = "Cube";
@@ -658,11 +617,10 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int)
 		// Initialise Direct Input and acquire the keyboard
 		if (SUCCEEDED(SetupDirectInput(hInst, hWnd)))
 		{				
-			//MessageBox(hwnd,"Keyboard Configuration\n\nCURSOR:\tRotate Whole Cube\nSPACE:\tReset View\n\nTab:\tCycle Through Rotatable Sections/Complete Rotation\n\tPage Up Or Page Down Keys:\tRotate\n\nR:\tHOLD to rapidly rotate sections\n\nQ:\tTo Quit","Controls",MB_OK | MB_ICONINFORMATION);
+			MessageBox(hwnd,"Keyboard Configuration\n\WASD:\tRotate Whole Cube\nSPACE:\tReset View\n\nTab:\tCycle Through Rotatable Sections/Complete Rotation\n\tPage Up Or Page Down Keys:\tRotate\n\nR:\tHOLD to rapidly rotate sections\n\nQ:\tTo Quit","Controls",MB_OK | MB_ICONINFORMATION);
 			// Show the window
 			ShowWindow(hWnd, SW_SHOWDEFAULT);
 			UpdateWindow(hWnd);
-			setupOptions();		
 
 			// Enter the message loop
 			MSG msg;

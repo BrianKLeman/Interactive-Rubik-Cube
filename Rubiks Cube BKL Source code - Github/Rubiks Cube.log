@@ -1,2 +1,4 @@
-﻿Test4_main.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/SAFESEH' specification
+﻿cl : command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
+  Test4_main.cpp
+C:\Users\Brian\source\repos\Interactive-Rubik-Cube\Rubiks Cube BKL Source code - Github\Test4_main.cpp(620,20): warning C4129: 'W': unrecognized character escape sequence
   Rubiks Cube.vcxproj -> C:\Users\Brian\source\repos\Interactive-Rubik-Cube\Rubiks Cube BKL Source code - Github\RubiksCube.exe

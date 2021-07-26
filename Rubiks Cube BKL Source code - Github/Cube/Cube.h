@@ -11,17 +11,16 @@
 #include <windows.h>	// Windows library (for window functions, menus, dialog boxes, etc)
 #include <d3dx9.h>		// Direct 3D library (for all Direct 3D functions)
 #include <math.h>		//for sin, cos, tan and sqrt
-
+#include "./../Camera.h"
 
 class Cube
 {
 public:
-	Cube(D3DXMATRIX& view, D3DXMATRIX& proj);
+	Cube(Camera camera);
 	~Cube();
 
 	void init(LPDIRECT3DDEVICE9 device);
 	
-	void SetViewProjectionMatrix(D3DXMATRIX& viewIn, D3DXMATRIX& projIn);
 	void SetObjectWorldViewTransfrom( D3DXMATRIX matIn);
 
 	// to create the special effect for the rubiks cube
@@ -44,11 +43,10 @@ public:
 	//render geometry with effect
 	HRESULT RenderWithEffect(D3DXMATRIX g_orientation,D3DXMATRIX orientation, D3DXVECTOR3 position, FLOAT flashFactor);
 private:
-
+	Camera mCamera;
 	D3DXMATRIX tranScale;
 	float scaler;
 	D3DXVECTOR3 vPos;
-	D3DXMATRIX& view, & proj;
 	LPD3DXMESH m_mesh;
 	LPDIRECT3DDEVICE9       l_g_pd3dDevice; // The rendering device
 	LPDIRECT3DVERTEXBUFFER9 l_pVertexBuffer; // Buffers to hold faces

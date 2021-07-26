@@ -28,6 +28,15 @@
     <ClCompile Include="Cube\Utility.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="RubikCubeApp.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="effect\HLSLEffect.h" />
@@ -52,6 +61,15 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Cube\Utility.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="RubikCubeApp.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>

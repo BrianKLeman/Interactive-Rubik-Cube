@@ -1,9 +1,10 @@
 
 #include "Cube.h"
+#include "../Camera.h"
 
-Cube::Cube(D3DXMATRIX& view, D3DXMATRIX& proj):
+Cube::Cube(Camera camera):
 scaler(1.0),vPos(0.0,0.0,0.0),l_g_pd3dDevice(0),
-l_pVertexBuffer(0), view(view), proj(proj)
+l_pVertexBuffer(0), mCamera(camera)
 {
 	D3DXMATRIX tran;
 	D3DXMatrixIdentity(&tran);
@@ -36,45 +37,38 @@ void Cube::init(LPDIRECT3DDEVICE9 device)
 
 HRESULT Cube::RenderWithEffect(D3DXMATRIX g_orientation,D3DXMATRIX orientation, D3DXVECTOR3 position, FLOAT flashFactor)
 {
-		HRESULT result;
-		
-		D3DXMATRIX object, objectWorld, objectWorldView, WorldViewProjectionMatrix;	
-
-		D3DXMATRIX identity;
-		D3DXMatrixIdentity(&identity);
-
-		// Set Object World View transform.
-
 		//create worldviewproj matrix
-		D3DXMatrixMultiply(&WorldViewProjectionMatrix, &identity, &view	);
-		D3DXMatrixMultiply(&WorldViewProjectionMatrix, &WorldViewProjectionMatrix, &proj);
+	    mCamera.SetFieldOfView(45.f);
+		D3DXMATRIX view = mCamera.GetViewMatrix();
+		D3DXMATRIX proj =  mCamera.GetProjectionMatrix();
 
 		//create modelworld matrix
+		D3DXMATRIX object, objectWorld;
 		D3DXMatrixIdentity(&object);
 		D3DXMatrixTranslation(&object,position.x,position.y,position.z);
 		D3DXMatrixMultiply(&object,&orientation,&object	);
 		D3DXMatrixMultiply(&objectWorld,&object,&g_orientation);
 
-
+		D3DXMATRIX objectWorldView;
 		D3DXMatrixMultiply( &objectWorldView, &objectWorld, &view	);
 		SetObjectWorldViewTransfrom(objectWorldView);
 
 		//create ModelWorldViewProj
+		D3DXMATRIX  WorldViewProjectionMatrix;	
 		D3DXMatrixMultiply( &WorldViewProjectionMatrix, &objectWorldView, &proj);
 		
-		D3DXMATRIX worldViewProjX;
 		setModelWorldViewProjMatrix(WorldViewProjectionMatrix);		
 
 	   	// Render the contents of the vertex buffer.
 		l_g_pd3dDevice -> SetFVF(m_mesh->GetFVF());		
 	    l_g_pd3dDevice -> SetStreamSource(0, l_pVertexBuffer, 0, m_mesh->GetNumBytesPerVertex());
-		UINT nbPasses(0);
-		
-	
 		l_g_pd3dDevice->SetIndices(m_IndexBuffer);
+
+		UINT nbPasses(0);	
 		setFlashFactor(flashFactor);
 		myEffect->CommitChanges();
-		result = myEffect->Begin(&nbPasses,0);
+		auto result = myEffect->Begin(&nbPasses,0);
+
 		for(unsigned int i = 0; i < nbPasses; i++)
 		{
 			myEffect->BeginPass(i);
@@ -85,7 +79,6 @@ HRESULT Cube::RenderWithEffect(D3DXMATRIX g_orientation,D3DXMATRIX orientation, 
 		}
 
 		myEffect->End();
-
 		
 		return result;
 }
@@ -146,11 +139,6 @@ HRESULT Cube::setupEffect()
 void Cube::setModelWorldViewProjMatrix(D3DXMATRIX matrix)
 {
 	if(myEffect->SetMatrix(ObjWorldViewProjMatrixHandleOfEffect,&matrix) != D3D_OK) MessageBox(NULL,"SET MATRIX FAILED","MATRIX",MB_OK);
-}
-
-void Cube::SetViewProjectionMatrix( D3DXMATRIX& viewIn, D3DXMATRIX& projIn )
-{
-	view = viewIn; proj = projIn;
 }
 
 void Cube::SetObjectWorldViewTransfrom( D3DXMATRIX matIn )

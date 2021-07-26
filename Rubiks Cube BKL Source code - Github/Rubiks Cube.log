@@ -1,4 +1,11 @@
 ﻿cl : command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
-  Test4_main.cpp
-C:\Users\Brian\source\repos\Interactive-Rubik-Cube\Rubiks Cube BKL Source code - Github\Test4_main.cpp(620,20): warning C4129: 'W': unrecognized character escape sequence
+cl : command line warning D9030: '/Gm' is incompatible with multiprocessing; ignoring /MP switch
+  RubikCube.cpp
+C:\Users\Brian\source\repos\Interactive-Rubik-Cube\Rubiks Cube BKL Source code - Github\Cube\RubikCube.cpp(165,31): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+  CubeTransformer.cpp
+  C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\INCLUDE\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+C:\Users\Brian\source\repos\Interactive-Rubik-Cube\Rubiks Cube BKL Source code - Github\Cube\Cube.h(6,1): warning C4005: 'DIRECTINPUT_VERSION': macro redefinition
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\INCLUDE\dinput.h(42): message : see previous definition of 'DIRECTINPUT_VERSION'
+  Generating Code...
+C:\Users\Brian\source\repos\Interactive-Rubik-Cube\Rubiks Cube BKL Source code - Github\Cube\RubikCube.cpp(255): warning C4715: 'RubikCube::GetNormalBySide': not all control paths return a value
   Rubiks Cube.vcxproj -> C:\Users\Brian\source\repos\Interactive-Rubik-Cube\Rubiks Cube BKL Source code - Github\RubiksCube.exe

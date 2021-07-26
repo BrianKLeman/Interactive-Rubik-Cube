@@ -1,7 +1,7 @@
 #include "RubikCube.h"
 
-RubikCube::RubikCube(D3DXMATRIX &view, D3DXMATRIX &proj)
-	:  mBox(view, proj)
+RubikCube::RubikCube(Camera camera)
+	:  mBox(camera)
 {	
 	int array_element(0);	
 
@@ -11,11 +11,16 @@ RubikCube::RubikCube(D3DXMATRIX &view, D3DXMATRIX &proj)
 				mChildCubes[array_element++] = Transform(D3DXVECTOR3(xPos,yPos,zPos));
 }
 
-
 RubikCube::~RubikCube(void)
 {
 }
 
+
+vector<Transform*> RubikCube::GetCubesToRotate(SIDE_SELECTED side)
+{
+	auto normal = GetNormalBySide(side);
+	return GetCubesToRotate(normal);
+}
 vector<Transform*> RubikCube::GetCubesToRotate(D3DXVECTOR3 normal)
 {
 	int* correctCubes = GetSide(normal);
@@ -179,9 +184,8 @@ void RubikCube::OnRender(SIDE_SELECTED current_side,D3DXMATRIX g_orientation,boo
 	}	
 }
 
-void RubikCube::Init(LPDIRECT3DDEVICE9 device,D3DXMATRIX& viewIn, D3DXMATRIX& projIn)
+void RubikCube::Init(LPDIRECT3DDEVICE9 device)
 {
-	mBox.SetViewProjectionMatrix(viewIn,projIn);
 	mBox.init(device);
 }
 
@@ -224,9 +228,28 @@ bool RubikCube::IsComplete()
 
 bool RubikCube::IsCubeInList( Transform* subject,vector<Transform*>* list, int list_length )
 {
+	if (list->size() == 0)
+		return false;
+
 	for(int i = 0; i < list_length;++i)
 	{
 		if((*list)[i] == subject) return true;
 	}
 	return false;
+}
+
+D3DXVECTOR3 RubikCube::GetNormalBySide(SIDE_SELECTED side)
+{
+	switch (side)
+	{
+		case FRONT:				return D3DXVECTOR3(0, 0, -1);   break;
+		case BACK: 				return D3DXVECTOR3(0, 0, 1);	break;
+		case TOP:	 			return D3DXVECTOR3(0, 1, 0);	break;
+		case BOTTOM:			return D3DXVECTOR3(0, -1, 0);   break;
+		case LEFT:				return D3DXVECTOR3(-1, 0, 0);   break;
+		case RIGHT:				return D3DXVECTOR3(1, 0, 0);	break;
+		//case HORIZONTAL_MIDDLE:	return D3DXVECTOR3(0, 1, 0);    break;
+		//case VERTICAL_MIDDLE:	return D3DXVECTOR3(1, 0, 0);    break;
+		case NONE:				return D3DXVECTOR3(0,0,-1);			break;
+	}
 }
